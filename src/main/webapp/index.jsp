@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
     <link rel="stylesheet" href="css/baguetteBox.min.css">
     <link rel="stylesheet" href="css/thumbnail-gallery.css">
-
+    <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
     <!--[if lt IE 9]>
     <script type="text/javascript" src="js/html5shiv.min.js"></script>
     <![endif]-->
@@ -412,7 +412,8 @@
 <!--登陆 -->
 
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+<!--data-backdrop="static" data-keyboard="false"   点击空白和按esc键不退出-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false" >
     <div class="modal-dialog"  >
         <div class="modal-content" style="width: 300px;padding-bottom: 40px;padding-left: 10px;padding-right: 10px;margin: 30% auto;">
             <div class="modal-header">
@@ -437,13 +438,13 @@
 
                     <div class="form-group">
 
-                        <input type="text" class="form-control" name="id" placeholder="请输入账号">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="请输入账号">
                     </div>
                     <%--<div class="form-group">--%>
                     <%--<input type="text" class="form-control" name="username" placeholder="请输入名称">--%>
                     <%--</div>--%>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="请输入密码">
                     </div>
 
                     <button type="submit" class="btn btn-default pull-right btn-success">登录</button>
@@ -459,8 +460,15 @@
 <script type="text/javascript" src="js/baguetteBox.min.js"></script>
 <script type="text/javascript">
     baguetteBox.run('.tz-gallery');
+
+    //模态框消失后清空表单内容
+    $(function () { $('#myModal').on('hide.bs.modal', function () {
+        $("#username").val("");
+        $("#password").val("");
+        });
+    });
 </script>
-<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
 <script src="js/jquery.appear.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/classie.js" type="text/javascript"></script>

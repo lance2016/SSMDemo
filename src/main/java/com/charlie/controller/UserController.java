@@ -30,18 +30,51 @@ public class UserController extends GenericController {
 
 
     @ModelAttribute
-    public User getUser(Map<String,Object>map){
-        System.out.println("modelAttribute method");
-        User user=new User(1,"2","333333333");
-        System.out.println(user);
-        map.put("user",user);
-        return user;
+    public void getUser(@RequestParam(value="userId",required=false) Integer userId,Map<String,Object>map){
+        System.out.println("-----------------------modelAttribute method++++++++++++++++++++++++++"+userId);
+        if(userId!=null){
+            User user=userService.getUserById(userId);
+            if(user==null)
+                System.out.println("没有该id");
+            else
+                System.out.println("从数据库中查出user"+user);
+        }
     }
+
+//增加用户
+
+    @RequestMapping("/addUser")
+    public String addUser(User user){
+        int n=userService.InsertUser(user);
+        if(n==0)
+            System.out.println("************增加失败");
+        else{
+            System.out.println("增加成功"+user);
+        }
+        return "redirect:user/login";
+    }
+
+
+    //管理员登录
     @RequestMapping(value="/login")
     public String check(User user){
+        User u=userService.getUserByUsername(user.getUsername());
+        System.out.println("u is "+u);
+        if(u==null)
+            System.out.println("---------------------不是管理员");
+        else{
+            if(!u.getPassword().equals(user.getPassword())){
+                System.out.println("--------------密码不正确");
+            }else{
+                System.out.println("++++++++++++++++登陆成功");
+            }
+        }
         System.out.println("修改："+user);
-        return  "index";
+        return  "/background/index";
     }
+
+
+
 
     @RequestMapping(value = "/test/{id}")
     public String test(@PathVariable("id")Integer id,Map<String,Object>map) throws IOException {
@@ -52,6 +85,9 @@ public class UserController extends GenericController {
             System.out.println("***************************************************error_______________________");
         return "index";
     }
+
+
+
     //返回jsp视图展示
     @RequestMapping(value = "/getUserModel",method = RequestMethod.GET)
     public ModelAndView getUsers1(@RequestParam Integer userId) {

@@ -1,0 +1,1 @@
+重新generate bean 和 mapper时候，mapper要在类前面加 @Repository
