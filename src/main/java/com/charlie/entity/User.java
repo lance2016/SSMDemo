@@ -1,17 +1,11 @@
 package com.charlie.entity;
 
-import java.util.Date;
-
 public class User {
     private Integer id;
 
     private String username;
 
-    private Date birthday;
-
-    private String sex;
-
-    private String address;
+    private String password;
 
     public Integer getId() {
         return id;
@@ -29,27 +23,30 @@ public class User {
         this.username = username == null ? null : username.trim();
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getPassword() {
+        return password;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
-    public String getSex() {
-        return sex;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
+    public User() {
+        super();
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public User(Integer id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
     }
 }

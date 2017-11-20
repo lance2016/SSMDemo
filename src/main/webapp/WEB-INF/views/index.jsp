@@ -7,6 +7,8 @@
 </head>
 <body>
 <p>Spring MVC based on XML config success!</p>
-<img src="/image/images.jpg" align="center" width="1000" height="1000">
+<img src="/images/images.jpg" align="center" width="1000" height="1000">
+
+
 </body>
 </html>

@@ -4,9 +4,7 @@
   <resultMap id="BaseResultMap" type="com.charlie.entity.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="sex" jdbcType="CHAR" property="sex" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, birthday, sex, address
+    id, username, password
   </sql>
   <select id="selectByExample" parameterType="com.charlie.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -100,10 +98,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.charlie.entity.User">
-    insert into user (id, username, birthday, 
-      sex, address)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
-      #{sex,jdbcType=CHAR}, #{address,jdbcType=VARCHAR})
+    insert into user (id, username, password
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.charlie.entity.User">
     insert into user
@@ -114,14 +112,8 @@
       <if test="username != null">
         username,
       </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="address != null">
-        address,
+      <if test="password != null">
+        password,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -131,14 +123,8 @@
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=DATE},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=CHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -157,14 +143,8 @@
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
-      <if test="record.birthday != null">
-        birthday = #{record.birthday,jdbcType=DATE},
-      </if>
-      <if test="record.sex != null">
-        sex = #{record.sex,jdbcType=CHAR},
-      </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -175,9 +155,7 @@
     update user
     set id = #{record.id,jdbcType=INTEGER},
       username = #{record.username,jdbcType=VARCHAR},
-      birthday = #{record.birthday,jdbcType=DATE},
-      sex = #{record.sex,jdbcType=CHAR},
-      address = #{record.address,jdbcType=VARCHAR}
+      password = #{record.password,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -188,14 +166,8 @@
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null">
-        birthday = #{birthday,jdbcType=DATE},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=CHAR},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -203,9 +175,7 @@
   <update id="updateByPrimaryKey" parameterType="com.charlie.entity.User">
     update user
     set username = #{username,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=DATE},
-      sex = #{sex,jdbcType=CHAR},
-      address = #{address,jdbcType=VARCHAR}
+      password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

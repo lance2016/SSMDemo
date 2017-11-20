@@ -3,6 +3,10 @@ package com.charlie.controller;
 import com.charlie.common.GenericController;
 import com.charlie.entity.User;
 import com.charlie.service.UserService;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-
+import java.util.Map;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController extends GenericController {
@@ -22,9 +28,33 @@ public class UserController extends GenericController {
     @Autowired
     private UserService userService;
 
+
+    @ModelAttribute
+    public User getUser(Map<String,Object>map){
+        System.out.println("modelAttribute method");
+        User user=new User(1,"2","333333333");
+        System.out.println(user);
+        map.put("user",user);
+        return user;
+    }
+    @RequestMapping(value="/login")
+    public String check(User user){
+        System.out.println("修改："+user);
+        return  "index";
+    }
+
+    @RequestMapping(value = "/test/{id}")
+    public String test(@PathVariable("id")Integer id,Map<String,Object>map) throws IOException {
+        User user=userService.getUserById(id);
+        map.put("user",user);
+        System.out.println(user);
+        if(user==null)
+            System.out.println("***************************************************error_______________________");
+        return "index";
+    }
     //返回jsp视图展示
-    @RequestMapping(value = "/getUserModel/{id}" , method = RequestMethod.GET)
-    public ModelAndView getUsers1(@PathVariable("id") Integer userId) {
+    @RequestMapping(value = "/getUserModel",method = RequestMethod.GET)
+    public ModelAndView getUsers1(@RequestParam Integer userId) {
         ModelAndView modelAndView = new ModelAndView();
         //调用service方法得到用户列表
         List<User> users = userService.getUsers(userId);
